@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheet.css" />
+  <title>Tips Para Redes Sociales</title>
+
+</head>
+
+<body>
+	<div class="video">
+	<video controls autoplay width="640" height="480">
+		<source src="Social Media Tips\Módulo 5_Social Media Tips.mp4" type="video/mp4" />
+	</video>
+</div>
+    <div class="preguntasportema"> 
+<fieldset>
+	<legend>Cuestionario Tips Para Redes Sociales</legend>
+	<div id="test">
+		<div class="cuestion">1. Seleccione un dato que no debe publicarse en redes sociales:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : Marcas favoritas.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Logros acad&eacute;micos.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Fecha de nacimiento completa.&nbsp;</label>
+		</div>
+		<div class="cuestion">2. “Licencias de derechos de autor que permiten copiar, distribuir, editar y desarrollar contenido, dentro de la propiedad intelectual”. El enunciado anterior se refiere al tipo de licencia denominado:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="1" value="a">&nbsp;a : Copyright.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="b">&nbsp;b : Creative Commons.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="c">&nbsp;c : Copyleft.&nbsp;</label>
+		</div>
+		<div class="cuestion">3. Una posible consecuencia negativa de publicar sin an&aacute;lisis previo en redes sociales corresponde a:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="2" value="a">&nbsp;a : Ciberacoso.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="b">&nbsp;b : Vergüenza.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="c">&nbsp;c : Prejuicios.&nbsp;</label>
+		</div>
+	</div>
+	<button id="boton">Mostrar resultado</button>
+	<div id="resultado">
+		<br>
+	</div>
+	<script>
+		const contenedor = document.getElementById("test");
+		const botonRes = document.getElementById("boton");
+		const resultadoTest = document.getElementById("resultado");
+
+		const preguntas = [
+			{
+				pregunta: "1. Seleccione un dato que no debe publicarse en redes sociales:",
+				respuestas:
+				{
+					a: "Marcas favoritas.",
+					b: "Logros académicos.",
+					c: "Fecha de nacimiento completa.",
+				},
+				respuestaCorrecta: "c",
+			},
+			{
+				pregunta: "2. “Licencias de derechos de autor que permiten copiar, distribuir, editar y desarrollar contenido, dentro de la propiedad intelectual”. El enunciado anterior se refiere al tipo de licencia denominado:",
+				respuestas:
+				{
+					a: "Copyright.",
+					b: "Creative Commons.",
+					c: "Copyleft.",
+				},
+				respuestaCorrecta: "b",
+			},
+			{
+				pregunta: "3. Una posible consecuencia negativa de publicar sin análisis previo en redes sociales corresponde a:",
+				respuestas:
+				{
+					a: "Ciberacoso.",
+					b: "Vergüenza.",
+					c: "Prejuicios.",
+				},
+				respuestaCorrecta: "a",
+			},
+
+		];
+
+		function mostrarTest()
+		{
+			const preguntasYrespuestas = [];
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+
+				const respuestas = [];
+
+				for (letraRespuesta in preguntaActual.respuestas)
+				{
+
+					respuestas.push(
+
+						`
+        <label>
+                  <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
+                  ${letraRespuesta} : ${preguntaActual.respuestas[letraRespuesta]} <br>
+              </label>` 
+					);
+                   
+				}
+
+				preguntasYrespuestas.push(
+					`
+      <div class="cuestion">${preguntaActual.pregunta}</div>
+      
+          <div class="respuestas"> ${respuestas.join("")} </div>
+          `
+				);
+			});
+
+			contenedor.innerHTML = preguntasYrespuestas.join("");
+		}
+
+		mostrarTest();
+
+		function mostrarResultado()
+		{
+			const respuestas = contenedor.querySelectorAll(".respuestas");
+			let respuestasCorrectas = 0;
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+				const todasLasRespuestas = respuestas[numeroDePregunta];
+				const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+				const respuestaElegida = (
+					todasLasRespuestas.querySelector(checkboxRespuestas) ||
+					{}
+				).value;
+
+				if (respuestaElegida === preguntaActual.respuestaCorrecta)
+				{
+					respuestasCorrectas++;
+
+					respuestas[numeroDePregunta].style.color = "blue";
+				}
+				else
+				{
+					respuestas[numeroDePregunta].style.color = "red";
+				}
+			});
+
+			resultadoTest.innerHTML =
+				"Usted ha acertado " +
+				respuestasCorrectas +
+				" preguntas de un total de " +
+				preguntas.length;
+		}
+
+		botonRes.addEventListener("click", mostrarResultado);
+
+	</script>
+       </div>
+
+</fieldset>
+</body>
+</html>
